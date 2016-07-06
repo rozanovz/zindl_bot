@@ -16,6 +16,7 @@ bot.getMe().then(function (me) {
 });
 
 bot.onText(/\/currency (.+)/, function (msg, match) {
+  console.log('currency');
 	var fromId = msg.from.id;
   var resp = match[1];
   var message = 
@@ -25,7 +26,12 @@ bot.onText(/\/currency (.+)/, function (msg, match) {
   bot.sendMessage(fromId, message);
 });
 
+bot.on('inline_query', function(msg){
+  console.log('inline query');
+});
+
 bot.onText(/\/fromUAH (.+)/, function (msg, match) {
+  console.log('fromUAH');
 	var fromId = msg.from.id;
   var originalMsg = msg.text.split(' ');
   var curr = originalMsg[3];
@@ -49,6 +55,7 @@ bot.onText(/\/fromUAH (.+)/, function (msg, match) {
 });
 
 bot.onText(/\/sell (.+)/, function (msg, match) {
+  console.log('sell');
 	var fromId = msg.from.id;
   var originalMsg = msg.text.split(' ');
   var curr = originalMsg[1];
@@ -72,6 +79,7 @@ bot.onText(/\/sell (.+)/, function (msg, match) {
 });
 
 bot.onText(/\/buy (.+)/, function (msg, match) {
+  console.log('buy');
 	var fromId = msg.from.id;
   var originalMsg = msg.text.split(' ');
   var curr = originalMsg[1];
