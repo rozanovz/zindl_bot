@@ -18,7 +18,7 @@ bot.on('inline_query', function(msg, mathc){
     bot.answerInlineQuery(msg.id, [{
       type: 'article',
       id: '1',
-      title: 'option 1',
+      title: 'Convert money option',
       input_message_content:{
          message_text: msg.query
       }
