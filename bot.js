@@ -15,6 +15,11 @@ bot.getMe().then(function (me) {
   console.log('Hi my name is %s!', me.username);
 });
 
+bot.onText(/\/start (.+)/, function (msg, match) {
+  console.log('currency');
+  bot.sendMessage(fromId, 'Hi, I can convert money for you here');
+});
+
 bot.onText(/\/currency (.+)/, function (msg, match) {
   console.log('currency');
 	var fromId = msg.from.id;
@@ -25,8 +30,6 @@ bot.onText(/\/currency (.+)/, function (msg, match) {
 		'currency: ' + currency[2].ccy + ', buy: ' + currency[2].buy + ', sale: ' + currency[2].sale + '\n';
   bot.sendMessage(fromId, message);
 });
-
-bot.on('inline_query', function(msg) { console.log("inline!!"); });
 
 bot.onText(/\/fromUAH (.+)/, function (msg, match) {
   console.log('fromUAH');
