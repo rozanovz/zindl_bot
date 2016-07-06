@@ -14,19 +14,17 @@ bot.getMe().then(function (me) {
 });
 
 bot.on('inline_query', function(msg, mathc){
-  if(msg.query){
-    bot.answerInlineQuery(msg.id, [{
-      type: 'article',
-      id: '1',
-      title: 'Convert money option',
-      input_message_content:{
-         message_text: msg.query
-      }
-    }]);
-  }
+  bot.answerInlineQuery(msg.id, [{
+    type: 'article',
+    id: '1',
+    title: 'Convert money option',
+    input_message_content:{
+       message_text: msg.query ? msg.query : 'customMessage'
+    }
+  }]);
 });
 
 bot.on('chosen_inline_result', function(params){
   console.log('chosen!!');
-  console.log(params);
+  bot.sendMessage(params.from.id, params.query);
 });

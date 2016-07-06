@@ -9,7 +9,7 @@ var currency;
 axios.get('https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11')
 		 .then(function(res){ currency = res.data });
 
-bot.onText(/\/UAH (.+)/, function (msg, match) {
+bot.onText(/\/uah (.+)/, function (msg, match) {
   console.log('fromUAH');
 	var fromId = msg.from.id;
   var originalMsg = msg.text.split(' ');
