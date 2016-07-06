@@ -26,8 +26,15 @@ bot.onText(/\/currency (.+)/, function (msg, match) {
   bot.sendMessage(fromId, message);
 });
 
-bot.on('inline_query', function(msg){
-  console.log('inline query');
+bot.on("inline_query", function(query) {
+    bot.answerInlineQuery(query.id, [{
+      id: '0', 
+      type: 'article', 
+      title: 'Title', 
+      description: 'Markdown', 
+      message_text: query.query,
+      parse_mode: 'Markdown'
+    }]);
 });
 
 bot.onText(/\/fromUAH (.+)/, function (msg, match) {
