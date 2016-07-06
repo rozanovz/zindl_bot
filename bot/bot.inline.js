@@ -26,7 +26,7 @@ bot.on('inline_query', function(msg, mathc){
   }
 });
 
-bot.on('message', function(params){
+bot.on('chosen_inline_result', function(params){
   console.log('chosen!!');
   console.log(params);
 });
