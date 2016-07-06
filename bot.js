@@ -7,27 +7,51 @@ var bot = new TelegramBot(token, {polling: true});
 var currency;
 
 axios.get('https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11')
-			.then(function(res){
-				currency = res.data
-			});
+		 .then(function(res){ currency = res.data });
 
 bot.getMe().then(function (me) {
   console.log('Hi my name is %s!', me.username);
 });
 
-bot.onText(/\/start (.+)/, function (msg, match) {
-  console.log('currency');
+bot.on('inline_query', function(msg, mathc){
+  if(msg.query){
+    bot.answerInlineQuery(msg.id, [{
+      type: 'article',
+      id: '1',
+      title: 'option 1',
+      input_message_content:{
+         message_text: msg.query
+      }
+    }]);
+  }
+});
+
+bot.on('chosen_inline_result', function(params){
+  console.log('chosen!!');
+});
+
+bot.onText(/\/start/, function (msg, match) {
+  console.log('start');
+  var fromId = msg.from.id;
   bot.sendMessage(fromId, 'Hi, I can convert money for you here');
 });
 
-bot.onText(/\/currency (.+)/, function (msg, match) {
+bot.onText(/\/currency/, function (msg, match) {
   console.log('currency');
 	var fromId = msg.from.id;
-  var resp = match[1];
   var message = 
-		'currency: ' + currency[0].ccy + ', buy: ' + currency[0].buy + ', sale: ' + currency[0].sale + '\n' + 
-		'currency: ' + currency[1].ccy + ', buy: ' + currency[1].buy + ', sale: ' + currency[1].sale + '\n' +
-		'currency: ' + currency[2].ccy + ', buy: ' + currency[2].buy + ', sale: ' + currency[2].sale + '\n';
+		'currency: ' + currency[0].ccy + 
+      ', buy: ' + currency[0].buy + 
+        ', sale: ' + currency[0].sale + '\n' + 
+
+		'currency: ' + currency[1].ccy + 
+      ', buy: ' + currency[1].buy + 
+        ', sale: ' + currency[1].sale + '\n' +
+
+		'currency: ' + currency[2].ccy + 
+      ', buy: ' + currency[2].buy + 
+        ', sale: ' + currency[2].sale + '\n';
+
   bot.sendMessage(fromId, message);
 });
 
