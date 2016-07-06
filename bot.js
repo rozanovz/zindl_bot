@@ -55,7 +55,7 @@ bot.onText(/\/currency/, function (msg, match) {
   bot.sendMessage(fromId, message);
 });
 
-bot.onText(/\/fromUAH (.+)/, function (msg, match) {
+bot.onText(/\/UAH (.+)/, function (msg, match) {
   console.log('fromUAH');
 	var fromId = msg.from.id;
   var originalMsg = msg.text.split(' ');
@@ -79,50 +79,35 @@ bot.onText(/\/fromUAH (.+)/, function (msg, match) {
   bot.sendMessage(fromId, money);
 });
 
-bot.onText(/\/sell (.+)/, function (msg, match) {
-  console.log('sell');
-	var fromId = msg.from.id;
+function ConvertCurrency(msg, action){
+  var fromId = msg.from.id;
   var originalMsg = msg.text.split(' ');
   var curr = originalMsg[1];
   var money = originalMsg[2];
   
   switch(curr){
-  	case 'USD':
-  		money = 'UAH ' + (money / currency[0].sale);
-  		break;
+    case 'USD':
+      money = 'UAH ' + (money * currency[0][action]);
+      break;
 
-  	case 'EUR':
-  		money = 'UAH ' + (money / currency[1].sale);
-  		break;
+    case 'EUR':
+      money = 'UAH ' + (money * currency[1][action]);
+      break;
 
-  	case 'RUR':
-  		money = 'UAH ' + (money / currency[2].sale);
-  		break;
+    case 'RUR':
+      money = 'UAH ' + (money * currency[2][action]);
+      break;
   }
 
   bot.sendMessage(fromId, money);
+}
+
+bot.onText(/\/sell (.+)/, function (msg, match) {
+  console.log('sell');
+  ConvertCurrency(msg, 'sell');
 });
 
 bot.onText(/\/buy (.+)/, function (msg, match) {
   console.log('buy');
-	var fromId = msg.from.id;
-  var originalMsg = msg.text.split(' ');
-  var curr = originalMsg[1];
-  var money = originalMsg[2];
-  
-  switch(curr){
-  	case 'USD':
-  		money = 'UAH ' + (money * currency[0].buy);
-  		break;
-
-  	case 'EUR':
-  		money = 'UAH ' + (money * currency[1].buy);
-  		break;
-
-  	case 'RUR':
-  		money = 'UAH ' + (money * currency[2].buy);
-  		break;
-  }
-
-  bot.sendMessage(fromId, money);
+  ConvertCurrency(msg, 'buy');
 });
