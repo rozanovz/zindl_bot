@@ -4,10 +4,9 @@ var currency;
 axios.get('https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11')
      .then(function(res){ currency = res.data });
 
-module.exports = function ConvertCurrency(msg, action){
+module.exports = function ConvertCurrency(txt, action){
   console.log('action');
-  var fromId = msg.from.id;
-  var originalMsg = msg.text.split(' ');
+  var originalMsg = txt.split(' ');
   var curr = originalMsg[1];
   var money = originalMsg[2];
   

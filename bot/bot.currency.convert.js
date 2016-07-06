@@ -6,10 +6,10 @@ var bot = new TelegramBot(token, {polling: true});
 
 bot.onText(/\/sell (.+)/, function (msg, match) {
   var fromId = msg.from.id;
-  bot.sendMessage(fromId, ConvertCurrency(msg, 'sell'));
+  bot.sendMessage(fromId, ConvertCurrency(msg.text, 'sell'));
 });
 
 bot.onText(/\/buy (.+)/, function (msg, match) {
   var fromId = msg.from.id;
-  bot.sendMessage(fromId, ConvertCurrency(msg, 'buy'));
+  bot.sendMessage(fromId, ConvertCurrency(msg.text, 'buy'));
 });
